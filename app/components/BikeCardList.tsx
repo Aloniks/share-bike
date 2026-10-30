@@ -1,10 +1,24 @@
-
 import BikeCard from "~/components/BikeCard";
 
-export default function BikeCardList() {
+interface Bike {
+  id: string | number;
+  title: string;
+  location: string;
+  date_range?: string;
+  dateRange?: string;
+  rating: number;
+  image_url?: string;
+  imageUrl?: string;
+  isFavorite?: boolean;
+}
 
-  // Временные данные о велосипедах
-  const bikes = [
+interface BikeCardListProps {
+  bikes?: Bike[];
+}
+
+export default function BikeCardList({ bikes: externalBikes }: BikeCardListProps) {
+  // Временные данные на случай, если из базы ничего не пришло
+  const defaultBikes = [
     {
       id: "1",
       title: "City bicycle",
@@ -43,18 +57,22 @@ export default function BikeCardList() {
     },
   ];
 
+  // Используем данные из базы, а если их нет — временные
+  const bikesToRender = externalBikes && externalBikes.length > 0 ? externalBikes : defaultBikes;
+
   return (
     <div>
-      {bikes.map((bike) => (
+      {bikesToRender.map((bike: any) => (
         <BikeCard
           key={bike.id}
-          id={bike.id}
+          id={String(bike.id)}
           title={bike.title}
           location={bike.location}
-          dateRange={bike.dateRange}
+          // Поддерживаем оба варианта написания дат и картинок (из базы и из старого массива)
+          dateRange={bike.date_range || bike.dateRange}
           rating={bike.rating}
-          imageUrl={bike.imageUrl}
-          isFavorite={bike.isFavorite}
+          imageUrl={bike.image_url || bike.imageUrl}
+          isFavorite={bike.isFavorite || false}
           onFavoriteToggle={(id) =>
             console.log("Toggled favorite:", id)
           }

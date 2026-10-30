@@ -1,12 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabase";
 import Header from "../components/Header";
 import MenuNav from "~/components/MenuNav";
 import BikeCardList from "~/components/BikeCardList";
 
-
 export default function Search() {
+  const [activeCategory, setActiveCategory] = useState("bicycles");
+  const [bikes, setBikes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const [activeCategory, setActiveCategory] = useState("bicycles");
+  // Загружаем байки из Supabase при открытии страницы
+  useEffect(() => {
+    async function fetchBikes() {
+      const { data, error } = await supabase
+        .from("bikes")
+        .select("*");
+
+      if (error) {
+        console.error("Ошибка при загрузке велосипедов:", error);
+      } else {
+        setBikes(data || []);
+      }
+      setLoading(false);
+    }
+
+    fetchBikes();
+  }, []);
+
   return (
     <div className="mobile-container" style={{ position: "relative", minHeight: "100vh", paddingBottom: "90px" }}>
       <Header />
@@ -38,81 +58,80 @@ const [activeCategory, setActiveCategory] = useState("bicycles");
               color: "#1C2C2D"
             }}
           />
-              </div>
-              
-              
-{/* Categories */}
-<div
-  style={{
-    display: "flex",
-    gap: "10px",
-    marginBottom: "28px",
-  }}
->
-  {[
-    { id: "bicycles", name: "Bicycles", icon: "🚲" },
-    { id: "tools", name: "Tools", icon: "🔧" },
-    { id: "rides", name: "Rides", icon: "↔️" },
-  ].map((category) => (
-    <button
-      key={category.id}
-      onClick={() => setActiveCategory(category.id)}
-      style={{
-        flex: 1,
-        padding: "18px 8px",
-        border: "none",
-        borderRadius: "18px",
-        backgroundColor:
-          activeCategory === category.id
-            ? "#1C2C2D"
-            : "#E8E3DC",
-        color:
-          activeCategory === category.id
-            ? "#FFFFFF"
-            : "#1C2C2D",
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "8px",
-        fontSize: "14px",
-      }}
-    >
-      <span style={{ fontSize: "24px" }}>
-        {category.icon}
-      </span>
-      {category.name}
-    </button>
-  ))}
-</div>
-
+        </div>
+             
+        {/* Categories */}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            marginBottom: "28px",
+          }}
+        >
+          {[
+            { id: "bicycles", name: "Bicycles", icon: "🚲" },
+            { id: "tools", name: "Tools", icon: "🔧" },
+            { id: "rides", name: "Rides", icon: "↔️" },
+          ].map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              style={{
+                flex: 1,
+                padding: "18px 8px",
+                border: "none",
+                borderRadius: "18px",
+                backgroundColor:
+                  activeCategory === category.id
+                    ? "#1C2C2D"
+                    : "#E8E3DC",
+                color:
+                  activeCategory === category.id
+                    ? "#FFFFFF"
+                    : "#1C2C2D",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "8px",
+                fontSize: "14px",
+              }}
+            >
+              <span style={{ fontSize: "24px" }}>
+                {category.icon}
+              </span>
+              {category.name}
+            </button>
+          ))}
+        </div>
 
         {/* Список байков */}
         <div>
-          {/* Category content */}
+          {activeCategory === "bicycles" && (
+            <div>
+              <h2>Available bikes</h2>
+              {loading ? (
+                <p>Загрузка...</p>
+              ) : (
+                <BikeCardList bikes={bikes} />
+              )}
+            </div>
+          )}
 
-{activeCategory === "bicycles" && (
-  <div>
-    <h2>Available bikes</h2>
-    <BikeCardList />
-  </div>
-)}
+          {activeCategory === "tools" && (
+            <div>
+              <h2>Available tools</h2>
+              <p>Tools will appear here.</p>
+            </div>
+          )}
 
-{activeCategory === "tools" && (
-  <div>
-    <h2>Available tools</h2>
-    <p>Tools will appear here.</p>
-  </div>
-)}
-
-{activeCategory === "rides" && (
-  <div>
-    <h2>Available rides</h2>
-    <p>Rides will appear here.</p>
-  </div>
-)}
-              </div>
-              
+          {activeCategory === "rides" && (
+            <div>
+              <h2>Available rides</h2>
+              <p>Rides will appear here.</p>
+            </div>
+          )}
+        </div>
       </main>
 
       <MenuNav />
