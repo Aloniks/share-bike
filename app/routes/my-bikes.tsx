@@ -3,9 +3,15 @@ import Header from "../components/Header";
 import MenuNav from "~/components/MenuNav";
 import BikeCardList from "~/components/BikeCardList";
 import BikeCard from "~/components/BikeCard";
+import { useNavigate } from "react-router";
+
 
 export default function MyBikes() {
-  return (
+
+    const navigate = useNavigate();
+    
+    return (
+      
     <div
       className="mobile-container"
       style={{
@@ -49,7 +55,8 @@ export default function MyBikes() {
     onFavoriteToggle={(id) => console.log(id)}
   />
 
-  <button
+    <button
+        onClick={() => navigate("/add-bike")}
     style={{
       width: "100%",
       padding: "15px",
