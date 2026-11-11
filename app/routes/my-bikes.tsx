@@ -50,7 +50,7 @@ export default function MyBikes() {
     location="Åbyhøj"
     dateRange="20/10/2026 - 27/10/2026"
     rating={3.8}
-    imageUrl="/Aarhus_cycling.png"
+    imageUrl={`${import.meta.env.BASE_URL}Aarhus_cycling.png`}
     isFavorite={false}
     onFavoriteToggle={(id) => console.log(id)}
   />
