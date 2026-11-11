@@ -21,7 +21,7 @@ export default function Home() {
           {/* Картинка сверху */}
           <div style={{ width: "100%", height: "160px" }}>
             <img 
-              src="/Aarhus_cycling.png" // Замени на путь к своей картинке из папки public
+              src={`${import.meta.env.BASE_URL}Aarhus_cycling.png`} // Замени на путь к своей картинке из папки public
               alt="People biking"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />

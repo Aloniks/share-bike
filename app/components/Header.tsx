@@ -22,7 +22,8 @@ export default function Header() {
         borderRadius: "50px"
       }}>
         <img 
-          src="/MapPin.svg"
+          src={`${import.meta.env.BASE_URL}MapPin.svg`}
+          /* src="/MapPin.svg" */
           alt="location icon"
           style={{ width: "16px", height: "16px" }}
         />
