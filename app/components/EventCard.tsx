@@ -5,24 +5,24 @@ export interface EventProps {
   joinedCount: number;
   date: string;
   distance: string;
-  level: string;
+  location: string;
   onJoin?: (id?: string | number) => void;
 }
 
 export default function Event({
   id,
   organizer,
-  role = "organiser",
+  role = "easy",
   joinedCount,
   date,
   distance,
-  level,
+  location,
   onJoin,
 }: EventProps) {
   return (
     <div
       style={{
-        backgroundColor: "#F3EEE9",
+        backgroundColor: "#fdfcfb",
         borderRadius: "20px",
         padding: "20px",
         display: "flex",
@@ -65,7 +65,7 @@ export default function Event({
             {role}
           </span>
         </div>
-        <span style={{ fontSize: "12px", color: "#777" }}>
+        <span style={{ fontSize: "14px", color: "#535151" }}>
           {joinedCount} riders joined
         </span>
       </div>
@@ -97,7 +97,7 @@ export default function Event({
             <line x1="12" y1="20" x2="12" y2="4" />
             <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
-          <span>{level}</span>
+          <span>{location}</span>
         </div>
       </div>
 

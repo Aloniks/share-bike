@@ -3,7 +3,7 @@
   max-width: 393px;
   min-height: 100vh;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: #e7e1db;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow-x: hidden;
@@ -30,7 +30,7 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-[#F3EEE9] dark:bg-gray-950;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;

@@ -21,8 +21,9 @@ export default function Home() {
           {/* Картинка сверху */}
           <div style={{ width: "100%", height: "160px" }}>
             <img 
-              src={`${import.meta.env.BASE_URL}Aarhus_cycling.png`} // Замени на путь к своей картинке из папки public
+              src={`${import.meta.env.BASE_URL}Aarhus_cycling.webp`} // Замени на путь к своей картинке из папки public
               alt="People biking"
+              fetchPriority="high"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
@@ -68,7 +69,7 @@ export default function Home() {
           </div>
         </div>
 
-        *// event //*
+       
 
         <div style={{ marginTop: "24px" }}>
   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
@@ -87,12 +88,12 @@ export default function Home() {
     joinedCount={4}
     date="20/10/2026"
     distance="20 km"
-    level="Beginner"
+    location="Brabrand"
     onJoin={(id) => console.log("Joined event:", id)}
   />
         </div>
         
-        *//people//*
+        
 
       <div style={{ marginTop: "28px", marginBottom: "20px" }}>
         <h2 style={{ fontSize: "18px", fontWeight: "700", color: "#1C2C2D", marginBottom: "16px", margin: "0 0 16px 0" }}>
